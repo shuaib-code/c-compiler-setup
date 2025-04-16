@@ -171,6 +171,6 @@ This task automates compiling and running your code directly from VS Code.
 
 After running the `main.c` example using `Ctrl + Shift + B`, you should see the following in the VS Code terminal:
 
-    ```bash
-    Hello, World!
-    ```
+```powershell
+Hello, World!
+```
