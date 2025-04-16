@@ -8,10 +8,10 @@ This guide helps you set up your Windows system to compile and run C and C++ pro
 
 Before you begin, ensure you have the following:
 
--   A Windows computer (preferably 64-bit).
--   Basic knowledge of C or C++.
--   **Visual Studio Code** installed.
-    -   👉 [Download VS Code](https://code.visualstudio.com/)
+- A Windows computer (preferably 64-bit).
+- Basic knowledge of C or C++.
+- **Visual Studio Code** installed.
+  - 👉 [Download VS Code](https://code.visualstudio.com/)
 
 ---
 
@@ -24,11 +24,12 @@ Before you begin, ensure you have the following:
 2.  Download the recommended 64-bit installer: `tdm64-gcc-10.3.0-2.exe`
 
 This package includes:
--   `gcc` (GNU C Compiler)
--   `g++` (GNU C++ Compiler)
--   `gdb` (GNU Debugger)
--   `mingw32-make` (optional, useful for building larger projects)
--   Required runtime libraries
+
+- `gcc` (GNU C Compiler)
+- `g++` (GNU C++ Compiler)
+- `gdb` (GNU Debugger)
+- `mingw32-make` (optional, useful for building larger projects)
+- Required runtime libraries
 
 ---
 
@@ -49,15 +50,15 @@ This package includes:
     ```
 3.  ✅ **Success:** You should see output displaying the GCC version (e.g., `tdm64-gcc (tdm64-1) 10.3.0`).
 4.  ❌ **Failure:** If you get an error like "'gcc' is not recognized...", try restarting your PC. If it still fails, you likely need to manually add the compiler's `bin` directory to your system's PATH environment variable:
-    * Search for "Environment Variables" in the Start menu and open "Edit the system environment variables".
-    * Click the "Environment Variables..." button.
-    * Under "System variables", find the `Path` variable, select it, and click "Edit...".
-    * Click "New" and add the path to your TDM-GCC installation's `bin` folder. Default:
-        ```text
-        C:\TDM-GCC-64\bin
-        ```
-    * Click OK on all windows to save the changes.
-    * **Close and reopen Command Prompt** and try `gcc --version` again.
+    - Search for "Environment Variables" in the Start menu and open "Edit the system environment variables".
+    - Click the "Environment Variables..." button.
+    - Under "System variables", find the `Path` variable, select it, and click "Edit...".
+    - Click "New" and add the path to your TDM-GCC installation's `bin` folder. Default:
+      ```text
+      C:\TDM-GCC-64\bin
+      ```
+    - Click OK on all windows to save the changes.
+    - **Close and reopen Command Prompt** and try `gcc --version` again.
 
 ---
 
@@ -68,9 +69,9 @@ This package includes:
 1.  Open Visual Studio Code.
 2.  Go to the Extensions view (click the square icon on the left sidebar or press `Ctrl+Shift+X`).
 3.  Search for and install the following extension:
-    * **C/C++** (by Microsoft) - Provides IntelliSense (code completion), debugging support, and code Browse.
-4.  *(Optional but Recommended)* Install:
-    * **Code Runner** (by Jun Han) - Allows quickly running code snippets or files with a simple command/shortcut (though we will set up a build task below).
+    - **C/C++** (by Microsoft) - Provides IntelliSense (code completion), debugging support, and code Browse.
+4.  _(Optional but Recommended)_ Install:
+    - **Code Runner** (by Jun Han) - Allows quickly running code snippets or files with a simple command/shortcut (though we will set up a build task below).
 
 ---
 
@@ -87,6 +88,7 @@ This package includes:
         └── tasks.json   # Build task configuration
     ```
 3.  Create a simple C program in `main.c`:
+
     ```c
     #include <stdio.h>
 
@@ -107,38 +109,38 @@ This task automates compiling and running your code directly from VS Code.
 
     ```json
     {
-        "version": "2.0.0",
-        "tasks": [
-            {
-                "label": "Compile & Run C (TDM-GCC)",
-                "type": "shell",
-                "command": "powershell", // Using PowerShell for multi-command sequence
-                "args": [
-                    "-Command",
-                    // 1. Create 'build' directory if it doesn't exist (-Force suppresses errors if it already exists)
-                    "New-Item -ItemType Directory -Force -Path build;",
-                    // 2. Compile the current file using gcc, place output in 'build' folder
-                    "gcc '${file}' -o build\\${fileBasenameNoExtension}.exe;",
-                    // 3. If compilation ($?) was successful (exit code 0), run the compiled executable
-                    "if ($?) { .\\build\\${fileBasenameNoExtension}.exe }"
-                ],
-                "group": {
-                    "kind": "build",
-                    "isDefault": true // Makes this the default build task (Ctrl+Shift+B)
-                },
-                "presentation": {
-                    "echo": true,
-                    "reveal": "always", // Show the terminal panel
-                    "focus": false,
-                    "panel": "shared", // Use a shared terminal
-                    "showReuseMessage": false,
-                    "clear": false // Don't clear terminal on each run
-                },
-                "problemMatcher": [
-                    "$gcc" // Use VS Code's built-in GCC problem matcher to detect errors/warnings
-                ]
-            }
-        ]
+      "version": "2.0.0",
+      "tasks": [
+        {
+          "label": "Compile & Run C (TDM-GCC)",
+          "type": "shell",
+          "command": "powershell", // Using PowerShell for multi-command sequence
+          "args": [
+            "-Command",
+            // 1. Create 'build' directory if it doesn't exist (-Force suppresses errors if it already exists)
+            "New-Item -ItemType Directory -Force -Path build;",
+            // 2. Compile the current file using gcc, place output in 'build' folder
+            "gcc '${file}' -o build\\${fileBasenameNoExtension}.exe;",
+            // 3. If compilation ($?) was successful (exit code 0), run the compiled executable
+            "if ($?) { .\\build\\${fileBasenameNoExtension}.exe }"
+          ],
+          "group": {
+            "kind": "build",
+            "isDefault": true // Makes this the default build task (Ctrl+Shift+B)
+          },
+          "presentation": {
+            "echo": true,
+            "reveal": "always", // Show the terminal panel
+            "focus": false,
+            "panel": "shared", // Use a shared terminal
+            "showReuseMessage": false,
+            "clear": false // Don't clear terminal on each run
+          },
+          "problemMatcher": [
+            "$gcc" // Use VS Code's built-in GCC problem matcher to detect errors/warnings
+          ]
+        }
+      ]
     }
     ```
 
@@ -154,14 +156,14 @@ This task automates compiling and running your code directly from VS Code.
 
 ## 🧠 Tips & Notes
 
-* Use the `.c` file extension for C programs and `.cpp` for C++ programs.
-* **For C++:** Modify the `tasks.json` command to use `g++` instead of `gcc`:
-    ```powershell
-    "g++ '${file}' -o build\\${fileBasenameNoExtension}.exe;"
-    ```
-* The `${file}` and `${fileBasenameNoExtension}` variables in `tasks.json` automatically refer to the file currently active in the editor.
-* Compiled executable files (`.exe`) are placed in the `build` folder within your project directory.
-* Debugging setup requires additional configuration (creating a `launch.json` file). The C/C++ extension can often help generate a basic configuration.
+- Use the `.c` file extension for C programs and `.cpp` for C++ programs.
+- **For C++:** Modify the `tasks.json` command to use `g++` instead of `gcc`:
+  ```powershell
+  "g++ '${file}' -o build\\${fileBasenameNoExtension}.exe;"
+  ```
+- The `${file}` and `${fileBasenameNoExtension}` variables in `tasks.json` automatically refer to the file currently active in the editor.
+- Compiled executable files (`.exe`) are placed in the `build` folder within your project directory.
+- Debugging setup requires additional configuration (creating a `launch.json` file). The C/C++ extension can often help generate a basic configuration.
 
 ---
 
@@ -169,6 +171,6 @@ This task automates compiling and running your code directly from VS Code.
 
 After running the `main.c` example using `Ctrl + Shift + B`, you should see the following in the VS Code terminal:
 
-    ```text
-    Hello, C World!
+    ```bash
+    Hello, World!
     ```
