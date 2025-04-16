@@ -1,0 +1,4 @@
+# Ignore build folder and compiled binaries
+build/
+*.exe
+*.out

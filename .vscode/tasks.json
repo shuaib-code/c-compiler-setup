@@ -1,0 +1,35 @@
+// Simple task to Compile and Run C/C++ Program
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compile & Run C (TDM-GCC)",
+      "type": "shell",
+      "command": "powershell", // Using PowerShell for multi-command sequence
+      "args": [
+        "-Command",
+        // 1. Create 'build' directory if it doesn't exist (-Force suppresses errors if it already exists)
+        "New-Item -ItemType Directory -Force -Path build;",
+        // 2. Compile the current file using gcc, place output in 'build' folder
+        "gcc '${file}' -o build\\${fileBasenameNoExtension}.exe;",
+        // 3. If compilation ($?) was successful (exit code 0), run the compiled executable
+        "if ($?) { .\\build\\${fileBasenameNoExtension}.exe }"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true // Makes this the default build task (Ctrl+Shift+B)
+      },
+      "presentation": {
+        "echo": false,
+        "reveal": "always", // Show the terminal panel
+        "focus": false,
+        "panel": "shared", // Use a shared terminal
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": [
+        "$gcc" // Use VS Code's built-in GCC problem matcher to detect errors/warnings
+      ]
+    }
+  ]
+}
